@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "159179140821",
+    "firebase_url": "https://eee-formula.firebaseio.com",
+    "project_id": "eee-formula",
+    "storage_bucket": "eee-formula.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159179140821:android:1c73d0b70517df71857c5c",
+        "android_client_info": {
+          "package_name": "com.saifeeeformula.saif_win10.saifdrawer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159179140821-dhc0oh7r201ju0d00o5glh9jnafbqtvj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.saifeeeformula.saif_win10.saifdrawer",
+            "certificate_hash": "b1e279bde19c46aa8f2c7e932ec31d50c9b45f5a"
+          }
+        },
+        {
+          "client_id": "159179140821-rq448sm6a32o0lp0conk7c5gu3tkspev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDMaaHRbAlMpONfwjNLdNyjYNkYSqAHww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159179140821-rq448sm6a32o0lp0conk7c5gu3tkspev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
