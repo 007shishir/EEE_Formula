@@ -1,4 +1,4 @@
-package com.saifeeeformula.saif_win10.saifdrawer.ui.gallery;
+package com.saifeeeformula.saif_win10.saifdrawer.ui.practice;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.saifeeeformula.saif_win10.saifdrawer.R;
 
-public class GalleryFragment extends Fragment {
+public class PracticeFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private PracticeViewModel practiceViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
+        practiceViewModel =
+                ViewModelProviders.of(this).get(PracticeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(this, new Observer<String>() {
+        practiceViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

@@ -17,7 +17,7 @@ import androidx.navigation.Navigation;
 
 import com.saifeeeformula.saif_win10.saifdrawer.R;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel homeViewModel;
 
@@ -33,16 +33,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         final TextView ch_5 = root.findViewById(R.id.btn05);
         final TextView ch_6 = root.findViewById(R.id.btn06);
         final TextView ch_7 = root.findViewById(R.id.btn07);
-        final TextView ch_8 = root.findViewById(R.id.btn08);
-        final TextView ch_9 = root.findViewById(R.id.btn09);
-        final TextView ch_10 = root.findViewById(R.id.btn10);
-        final TextView ch_11 = root.findViewById(R.id.btn11);
-        final TextView ch_12 = root.findViewById(R.id.btn12);
-        final TextView ch_13 = root.findViewById(R.id.btn13);
-        final TextView ch_14 = root.findViewById(R.id.btn14);
-        final TextView ch_15 = root.findViewById(R.id.btn15);
+//        final TextView ch_8 = root.findViewById(R.id.btn08);
+//        final TextView ch_9 = root.findViewById(R.id.btn09);
+//        final TextView ch_10 = root.findViewById(R.id.btn10);
+//        final TextView ch_11 = root.findViewById(R.id.btn11);
+//        final TextView ch_12 = root.findViewById(R.id.btn12);
+//        final TextView ch_13 = root.findViewById(R.id.btn13);
+//        final TextView ch_14 = root.findViewById(R.id.btn14);
+//        final TextView ch_15 = root.findViewById(R.id.btn15);
 
         ch_1.setOnClickListener(this);
+        ch_2.setOnClickListener(this);
+        ch_3.setOnClickListener(this);
+        ch_4.setOnClickListener(this);
+        ch_5.setOnClickListener(this);
+        ch_6.setOnClickListener(this);
+        ch_7.setOnClickListener(this);
 
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -55,16 +61,48 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        Bundle child_name;
+        switch (v.getId()) {
             case R.id.btn01:
-                Bundle child_name = new Bundle();
+                child_name = new Bundle();
                 child_name.putString("child_name", "basicEE");
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
-                default:
-                    Toast.makeText(getContext(),
-                            "Please make sure you have Active Internet Connection! ",
-                            Toast.LENGTH_LONG).show();
+            case R.id.btn02:
+                child_name = new Bundle();
+                child_name.putString("child_name", "elecMachines");
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
+                break;
+            case R.id.btn03:
+                child_name = new Bundle();
+                child_name.putString("child_name", "powerSys");
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
+                break;
+            case R.id.btn04:
+                child_name = new Bundle();
+                child_name.putString("child_name", "basicElec");
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
+                break;
+            case R.id.btn05:
+                child_name = new Bundle();
+                child_name.putString("child_name", "eeeMathCollection");
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
+                break;
+            case R.id.btn06:
+                child_name = new Bundle();
+                child_name.putString("child_name", "eeeJobMath");
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
+                break;
+            case R.id.btn07:
+                child_name = new Bundle();
+                child_name.putString("child_name", "extraNote");
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
+                break;
+
+            default:
+                Toast.makeText(getContext(),
+                        "Please make sure you have Active Internet Connection! ",
+                        Toast.LENGTH_LONG).show();
         }
     }
 }

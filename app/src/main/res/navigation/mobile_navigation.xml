@@ -17,15 +17,19 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.saifeeeformula.saif_win10.saifdrawer.ui.gallery.GalleryFragment"
+        android:name="com.saifeeeformula.saif_win10.saifdrawer.ui.practice.PracticeFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.saifeeeformula.saif_win10.saifdrawer.ui.slideshow.SlideshowFragment"
+        android:name="com.saifeeeformula.saif_win10.saifdrawer.ui.jobportal.JobPortalFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow" >
+        <action
+            android:id="@+id/action_nav_slideshow_to_formulaView"
+            app:destination="@id/formulaView" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_tools"

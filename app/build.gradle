@@ -44,5 +44,9 @@ dependencies {
 
     //for image
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //PhotoViewAttacher
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

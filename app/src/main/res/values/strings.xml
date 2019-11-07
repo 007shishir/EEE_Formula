@@ -8,9 +8,9 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
+    <string name="menu_gallery">Practice</string>
+    <string name="menu_slideshow">BD JOB PORTAL</string>
+    <string name="menu_tools">Privacy Policy</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
@@ -19,17 +19,17 @@
     <string name="Sec2">Electrical Machines</string>
     <string name="Sec3">Power System</string>
     <string name="Sec4">Basic Electronics</string>
-    <string name="Sec5">Electrostatics</string>
-    <string name="Sec6">Capacitance</string>
-    <string name="Sec7">Magnetism and Electromagnetism</string>
-    <string name="Sec8">Magnetic Circuits</string>
-    <string name="Sec9">Electromagnetic Induction</string>
-    <string name="Sec10">Chemical Effects of Electric Current</string>
-    <string name="Sec11">Alternating Current</string>
-    <string name="Sec12">Series A.C. Circuits</string>
-    <string name="Sec13">Phasor Algebra</string>
-    <string name="Sec14">Parallel A.C. Circuits</string>
-    <string name="Sec15">Three Phase Circuits</string>
-    <string name="Sec16">Electrical Measuring Instruments</string>
+    <string name="Sec5">EEE Math Collection</string>
+    <string name="Sec6">EEE Math For Job</string>
+    <string name="Sec7">Extras</string>
+<!--    <string name="Sec8">Magnetic Circuits</string>-->
+<!--    <string name="Sec9">Electromagnetic Induction</string>-->
+<!--    <string name="Sec10">Chemical Effects of Electric Current</string>-->
+<!--    <string name="Sec11">Alternating Current</string>-->
+<!--    <string name="Sec12">Series A.C. Circuits</string>-->
+<!--    <string name="Sec13">Phasor Algebra</string>-->
+<!--    <string name="Sec14">Parallel A.C. Circuits</string>-->
+<!--    <string name="Sec15">Three Phase Circuits</string>-->
+<!--    <string name="Sec16">Electrical Measuring Instruments</string>-->
 
 </resources>

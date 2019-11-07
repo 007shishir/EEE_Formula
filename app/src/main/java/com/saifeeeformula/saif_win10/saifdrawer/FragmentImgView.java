@@ -3,6 +3,7 @@ package com.saifeeeformula.saif_win10.saifdrawer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -10,8 +11,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.GestureDetector;
@@ -20,7 +19,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
+
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -31,6 +30,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -44,6 +44,8 @@ public class FragmentImgView extends Fragment {
     private String firebaseLink = "https://eee-formula.firebaseio.com/";
     private String j,k,l,m,n,child_name, key_name;
     private ImageView mImg_1, mImg_2, mImg_3, mImg_4, mImg_5;
+    private PhotoViewAttacher mAttacher;
+
     private ConnectivityManager connectivityManager;
 
     private static final String TAG = "FragmentImgView";
@@ -69,10 +71,28 @@ public class FragmentImgView extends Fragment {
         key_name = getArguments().getString("key_name");
 
         mImg_1 = rootView.findViewById(R.id.mImg_1);
+        // Set the Drawable displayed
+        Drawable bitmap = getResources().getDrawable(R.drawable.ic_menu_camera);
+        mImg_1.setImageDrawable(bitmap);
+        // Attach a PhotoViewAttacher, which takes care of all of the zooming functionality.
+        mAttacher = new PhotoViewAttacher(mImg_1);
+
         mImg_2 = rootView.findViewById(R.id.mImg_2);
+        mImg_2.setImageDrawable(bitmap);
+        mAttacher = new PhotoViewAttacher(mImg_2);
+
         mImg_3 = rootView.findViewById(R.id.mImg_3);
+        mImg_3.setImageDrawable(bitmap);
+        mAttacher = new PhotoViewAttacher(mImg_3);
+
         mImg_4 = rootView.findViewById(R.id.mImg_4);
+        mImg_4.setImageDrawable(bitmap);
+        mAttacher = new PhotoViewAttacher(mImg_4);
+
         mImg_5 = rootView.findViewById(R.id.mImg_5);
+        mImg_5.setImageDrawable(bitmap);
+        mAttacher = new PhotoViewAttacher(mImg_5);
+
         layout =rootView.findViewById(R.id.mScrollView);
 
         Toast.makeText(getContext(), "Please make sure you have active internet connection",
