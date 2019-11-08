@@ -48,5 +48,9 @@ dependencies {
     //PhotoViewAttacher
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
+    //Room database library
+    implementation 'androidx.room:room-runtime:2.2.1'
+    annotationProcessor 'androidx.room:room-compiler:2.2.1'
+
 }
 apply plugin: 'com.google.gms.google-services'
