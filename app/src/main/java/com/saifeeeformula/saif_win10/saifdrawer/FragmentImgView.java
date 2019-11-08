@@ -42,7 +42,7 @@ public class FragmentImgView extends Fragment {
 
     private FragmentImgViewViewModel mViewModel;
     private String firebaseLink = "https://eee-formula.firebaseio.com/";
-    private String j,k,l,m,n,child_name, key_name;
+    private String j,k,l,m,n,child_name, key_name, source, topic, actionBarText;
     private ImageView mImg_1, mImg_2, mImg_3, mImg_4, mImg_5;
     private PhotoViewAttacher mAttacher;
 
@@ -69,6 +69,7 @@ public class FragmentImgView extends Fragment {
         assert getArguments() != null;
         child_name = getArguments().getString("child_name");
         key_name = getArguments().getString("key_name");
+        actionBarText = getArguments().getString("actionBar_title");
 
         mImg_1 = rootView.findViewById(R.id.mImg_1);
         // Set the Drawable displayed
@@ -127,6 +128,8 @@ public class FragmentImgView extends Fragment {
             readThirdLink();
             readFourthLink();
             readFifthLink();
+            readSource();
+            readTopic();
         }else {
             Toast.makeText(getContext(),
                     "Please activate internet connection", Toast.LENGTH_SHORT).show();
@@ -263,5 +266,50 @@ public class FragmentImgView extends Fragment {
 
             }
         });
+    }
+    public void readSource(){
+        //reading N or fifth link
+        Firebase getN = new Firebase(firebaseLink+"/"+child_name+"/"+key_name+"/"+"source");
+        getN.keepSynced(false);
+        getN.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                source = dataSnapshot.getValue(String.class);
+                if (source == null||source.isEmpty()){
+                    source = "Default Text";
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+    public void readTopic(){
+        //reading N or fifth link
+        Firebase getN = new Firebase(firebaseLink+"/"+child_name+"/"+key_name+"/"+"topic");
+        getN.keepSynced(false);
+        getN.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                topic = dataSnapshot.getValue(String.class);
+                if (topic == null||topic.isEmpty()){
+                    topic = "Default Text";
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(actionBarText);
     }
 }

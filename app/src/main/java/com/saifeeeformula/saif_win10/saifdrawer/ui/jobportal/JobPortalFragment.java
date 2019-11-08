@@ -50,11 +50,13 @@ public class JobPortalFragment extends Fragment implements View.OnClickListener 
             case R.id.mLLeeeJob:
                 child_name = new Bundle();
                 child_name.putString("child_name", "eeeJob");
+                child_name.putString("actionBar_title", "Job Circular (EEE)");
                 Navigation.findNavController(v).navigate(R.id.action_nav_slideshow_to_formulaView, child_name);
                 break;
             case R.id.mLLbankJob:
                 child_name = new Bundle();
                 child_name.putString("child_name", "bankJob");
+                child_name.putString("actionBar_title", "Job Circular (Bank)");
                 Navigation.findNavController(v).navigate(R.id.action_nav_slideshow_to_formulaView, child_name);
                 break;
             default:

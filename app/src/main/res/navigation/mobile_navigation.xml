@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_nav_gallery_to_memoriseRecView"
             app:destination="@id/memoriseRecView" />
+        <action
+            android:id="@+id/action_nav_gallery_to_mcqRecView"
+            app:destination="@id/mcqRecView" />
     </fragment>
 
     <fragment
@@ -55,7 +58,7 @@
     <fragment
         android:id="@+id/formulaView"
         android:name="com.saifeeeformula.saif_win10.saifdrawer.FormulaView"
-        android:label="Formula"
+        android:label="Choose a Card!"
         tools:layout="@layout/formula_view_fragment">
         <action
             android:id="@+id/action_formulaView_to_fragmentImgView"
@@ -69,6 +72,11 @@
     <fragment
         android:id="@+id/memoriseRecView"
         android:name="com.saifeeeformula.saif_win10.saifdrawer.memorise.MemoriseRecView"
+        android:label="Choose a Card!"
+        tools:layout="@layout/formula_view_fragment"/>
+    <fragment
+        android:id="@+id/mcqRecView"
+        android:name="com.saifeeeformula.saif_win10.saifdrawer.mcq.McqRecView"
         android:label="Choose a Card!"
         tools:layout="@layout/formula_view_fragment"/>
 </navigation>

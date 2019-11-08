@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".memorise.MemorizeVersion1"/>
+        <activity android:name=".mcq.McqVersion1"/>
     </application>
 
 </manifest>

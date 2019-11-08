@@ -34,7 +34,7 @@ public class FormulaView extends Fragment {
 //came from previous fragment
     private RecyclerView mRecycler_Memorize;
     private DatabaseReference mDatabase;
-    String childName_fromFragment;
+    String childName_fromFragment, actionBarText;
 
     //To check internet connection
     private ConnectivityManager connectivityManager;
@@ -55,6 +55,7 @@ public class FormulaView extends Fragment {
 
         assert getArguments() != null;
         childName_fromFragment = getArguments().getString("child_name");
+        actionBarText = getArguments().getString("actionBar_title");
         mDatabase = FirebaseDatabase.getInstance().getReference().child(childName_fromFragment);
         mDatabase.keepSynced(false);
         mRecycler_Memorize = root.findViewById(R.id.mRecycler_Memorize);
@@ -92,6 +93,7 @@ public class FormulaView extends Fragment {
                                     Bundle stringData = new Bundle();
                                     stringData.putString("child_name", childName_fromFragment);
                                     stringData.putString("key_name", post_key);
+                                    stringData.putString("actionBar_title", actionBarText);
                                     Navigation.findNavController(v).navigate(R.id.action_formulaView_to_fragmentImgView,
                                             stringData);
                                 }else {
@@ -135,5 +137,13 @@ public class FormulaView extends Fragment {
             TextView post_total = mView.findViewById(R.id.mTxt_total);
             post_total.setText(total);
         }
+    }
+
+    //To change the action bar title
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(actionBarText);
     }
 }

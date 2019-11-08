@@ -58,7 +58,7 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
                 child_name = new Bundle();
                 child_name.putString("child_name", "eeeMcqOne");
                 Navigation.findNavController(v).navigate
-                        (R.id.action_nav_gallery_to_memoriseRecView, child_name);
+                        (R.id.action_nav_gallery_to_mcqRecView, child_name);
                 break;
             default:
                 Toast.makeText(getContext(), "Make sure you have active internet connection",

@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.saifeeeformula.saif_win10.saifdrawer.FormulaViewViewModel;
+import com.saifeeeformula.saif_win10.saifdrawer.MainActivity;
 import com.saifeeeformula.saif_win10.saifdrawer.Parameter;
 import com.saifeeeformula.saif_win10.saifdrawer.R;
 
@@ -61,6 +62,7 @@ public class MemoriseRecView extends Fragment {
         mRecycler_Memorize = root.findViewById(R.id.mRecycler_Memorize);
         mRecycler_Memorize.setHasFixedSize(true);
         mRecycler_Memorize.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         return root;
     }
