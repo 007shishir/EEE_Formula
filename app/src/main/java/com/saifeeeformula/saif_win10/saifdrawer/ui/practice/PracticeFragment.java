@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,18 +16,39 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+
+import com.facebook.ads.AudienceNetworkAds;
 import com.saifeeeformula.saif_win10.saifdrawer.R;
+import com.facebook.ads.*;
+
+import java.util.Objects;
 
 public class PracticeFragment extends Fragment implements View.OnClickListener {
 
     private PracticeViewModel practiceViewModel;
     Button mBtn_memorise, mBtn_mcq;
+    private AdView adView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         practiceViewModel =
                 ViewModelProviders.of(this).get(PracticeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+
+        AudienceNetworkAds.initialize(Objects.requireNonNull(getContext()));
+        adView = new AdView(getContext(),
+                getResources().getString(R.string.facebook_rectangle_add),
+                AdSize.RECTANGLE_HEIGHT_250);
+
+        // Find the Ad Container
+        LinearLayout adContainer = root.findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        // Request an ad
+        adView.loadAd();
+
 //        final TextView textView = root.findViewById(R.id.text_gallery);
         practiceViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -66,5 +88,13 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
                 break;
 
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

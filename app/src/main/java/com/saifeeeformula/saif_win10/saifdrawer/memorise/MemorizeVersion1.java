@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.facebook.ads.AudienceNetworkAds;
 import com.saifeeeformula.saif_win10.saifdrawer.R;
 
 import com.firebase.client.DataSnapshot;
@@ -30,6 +31,7 @@ import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
+import com.facebook.ads.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -53,7 +55,6 @@ public class MemorizeVersion1 extends AppCompatActivity {
             mTxt_Header_topic;
     ImageView imageView_memorise;
     LinearLayout mLL_image_memorise;
-    private PhotoViewAttacher mAttacher;
     LinearLayout mL_explanation;
 
     String[] questionN = {"q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12",
@@ -74,6 +75,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
 
     String mPost_key;
     String child_Name;
+    private AdView adView;
 
 
     @Override
@@ -81,7 +83,18 @@ public class MemorizeVersion1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorize_version1);
         Firebase.setAndroidContext(this);
-        //https://eee-formula.firebaseio.com/
+
+        AudienceNetworkAds.initialize(this);
+        adView = new AdView(this,
+                getResources().getString(R.string.facebook_rectangle_add),
+                AdSize.RECTANGLE_HEIGHT_250);
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+        // Request an ad
+        adView.loadAd();
+
         firebaseRootURL = "https://eee-formula.firebaseio.com/";
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -149,71 +162,8 @@ public class MemorizeVersion1 extends AppCompatActivity {
     }
 
     private void header_topic_selection() {
-        switch (child_Name) {
-            case "android_mem_p02":
-            case "memorise_p01":
-            case "android_mcq_p01":
-            case "android_mcq_p02":
-                mTxt_Header_topic.setText("Android Studio");
-                break;
-            case "css_mem_p01":
-            case "css_mem_p02":
-                mTxt_Header_topic.setText("CSS");
-                break;
-            case "excel2010_mem_p01":
-                mTxt_Header_topic.setText("Excel 2010");
-                break;
-            case "adv_excel_mem_p01":
-                mTxt_Header_topic.setText("Advance Excel");
-                break;
-            case "excel_chart_mem_p01":
-                mTxt_Header_topic.setText("Excel Charts");
-                break;
-            case "excel_func_mem_p01":
-                mTxt_Header_topic.setText("Excel Function");
-                break;
-            case "google_analytic_mem_p01":
-                mTxt_Header_topic.setText("Google Analytics");
-                break;
-            case "html_mem_p01":
-            case "html_mem_p02":
-                mTxt_Header_topic.setText("HTML");
-                break;
-            case "java_mem_p01":
-            case "java_mem_p02":
-                mTxt_Header_topic.setText("Java");
-                break;
-            case "javascript_mem_p01":
-            case "javascript_mem_p02":
-                mTxt_Header_topic.setText("JavaScript");
-                break;
-            case "kotlin_mem_p01":
-            case "kotlin_mem_p02":
-                mTxt_Header_topic.setText("Kotlin");
-                break;
-            case "mvvm_mem_p01":
-            case "mvvm_mem_p02":
-                mTxt_Header_topic.setText("MVVM");
-                break;
-            case "pivot_tab_mem_p01":
-                mTxt_Header_topic.setText("Excel Pivot Table");
-                break;
-            case "rest_api_mem_p01":
-            case "rest_api_mem_p02":
-                mTxt_Header_topic.setText("REST API");
-                break;
-            case "word2010_mem_p01":
-                mTxt_Header_topic.setText("Word 2010");
-                break;
-            case "wordpress_mem_p01":
-            case "wordpress_mem_p02":
-                mTxt_Header_topic.setText("WordPress");
-                break;
-            default:
-                mTxt_Header_topic.setText("memorize");
-                break;
-
-        }
+        //for multiple childname, use switch case statement
+        mTxt_Header_topic.setText(getResources().getString(R.string.memorize));
     }
 
     public void readFromDatabase() {
@@ -266,11 +216,14 @@ public class MemorizeVersion1 extends AppCompatActivity {
                 totalQ = mre.getTotal_N_Q();
                 if (totalQ < 1) {
                     totalQ = 1;
-                    Toast.makeText(getApplicationContext(), "find out why totalQ is less than one", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "find out why totalQ is less than one", Toast.LENGTH_SHORT).show();
                 }
 
                 String special_id = child_Name + "_" + mPost_key + "_" + questionN[totalQ - 1];
-                final List<Memorize_entity> read_level_fromDatabase = Memorize_database.getINSTANCE(getApplicationContext()).
+                final List<Memorize_entity> read_level_fromDatabase =
+                        Memorize_database.getINSTANCE(getApplicationContext()).
+
                         memorize_dao().select_question(special_id);
 
                 if (read_level_fromDatabase.isEmpty()) {
@@ -280,7 +233,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
                 if (!read_level_fromDatabase.isEmpty()) {
                     for (Memorize_entity mr_level : read_level_fromDatabase) {
                         level_cards = mr_level.getLevel_cards();
-//                        Toast.makeText(getApplicationContext(), "101: "+level_cards, Toast.LENGTH_SHORT).show();
+
                         updateLevelStatus(level_cards);
                     }
                 }
@@ -598,12 +551,12 @@ public class MemorizeVersion1 extends AppCompatActivity {
     //question status per question
     public void updateLevelEachQuestionStatus(int a) {
         if (a < 2) {
-            mTxt_PointEachQ.setText("Primary");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.primary));
 
         } else if (a == 2 || a == 3) {
-            mTxt_PointEachQ.setText("Learning");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.learning));
         } else {
-            mTxt_PointEachQ.setText("Master");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.master));
         }
     }
 
@@ -3646,9 +3599,9 @@ public class MemorizeVersion1 extends AppCompatActivity {
                         progressLearning.setProgress(countLearning);
                         progressMaster.setProgress(countMaster);
 
-                        String textPr = "Primary: " + String.valueOf(countPrimary) + " (out of " + String.valueOf(totalQ) + ")";
-                        String textLr = "Learning: " + String.valueOf(countLearning) + " (out of " + String.valueOf(totalQ) + ")";
-                        String textMs = "Master: " + String.valueOf(countMaster) + " (out of " + String.valueOf(totalQ) + ")";
+                        String textPr = "Primary: " + countPrimary + " (out of " + totalQ + ")";
+                        String textLr = "Learning: " + countLearning + " (out of " + totalQ + ")";
+                        String textMs = "Master: " + countMaster + " (out of " + totalQ + ")";
 
                         mPrimary_Text.setText(textPr);
                         mLearning_Text.setText(textLr);
@@ -3728,7 +3681,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
             mTxt_E1.setText(defaultE);
             mTxt_E2.setText(defaultEE);
             mQuestNum++;
-//                        Toast.makeText(getApplicationContext(), String.valueOf(mQuestNum), Toast.LENGTH_LONG).show();
+
             if (mQuestNum > totalQ) {
                 mQuestNum = 1;
                 make_int_r_zero();
@@ -3902,7 +3855,8 @@ public class MemorizeVersion1 extends AppCompatActivity {
                     .into(imageView_memorise);
 
             // Attach a PhotoViewAttacher, which takes care of all of the zooming functionality.
-            mAttacher = new PhotoViewAttacher(imageView_memorise);
+            PhotoViewAttacher mAttacher = new PhotoViewAttacher(imageView_memorise);
+            mAttacher.update();
         }
 
     }
@@ -3939,5 +3893,13 @@ public class MemorizeVersion1 extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

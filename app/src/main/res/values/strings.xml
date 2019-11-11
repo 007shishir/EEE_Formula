@@ -22,14 +22,30 @@
     <string name="Sec5">EEE Math Collection</string>
     <string name="Sec6">EEE Math For Job</string>
     <string name="Sec7">Extras</string>
-<!--    <string name="Sec8">Magnetic Circuits</string>-->
-<!--    <string name="Sec9">Electromagnetic Induction</string>-->
-<!--    <string name="Sec10">Chemical Effects of Electric Current</string>-->
-<!--    <string name="Sec11">Alternating Current</string>-->
-<!--    <string name="Sec12">Series A.C. Circuits</string>-->
-<!--    <string name="Sec13">Phasor Algebra</string>-->
-<!--    <string name="Sec14">Parallel A.C. Circuits</string>-->
-<!--    <string name="Sec15">Three Phase Circuits</string>-->
-<!--    <string name="Sec16">Electrical Measuring Instruments</string>-->
+
+<!--    facebook add-->
+    <string name="facebook_banner_add">1148381112218446_1148396125550278</string>
+    <string name="facebook_rectangle_add">1148381112218446_1148471008876123</string>
+    <string name="about">About US</string>
+    <string name="memorize">Memorize</string>
+
+<!--    basicEE, elecMachines, powerSys, basicElec, eeeMathCollection,-->
+<!--    eeeMathCollection, eeeJobMath, extraNote
+        eeeJob, bankJob
+-->
+    <string name="basicEE">Basic Electrical Engineering</string>
+    <string name="elecMachines">Electrical Machines</string>
+    <string name="powerSys">Power System</string>
+    <string name="basicElec">Basic Electronics</string>
+    <string name="eeeMathCollection">EEE Math</string>
+    <string name="eeeJobMath">Math for Job</string>
+    <string name="extraNote">Extra Section</string>
+    <string name="right">RIGHT!</string>
+    <string name="mcq">MCQ</string>
+    <string name="primary">Primary</string>
+    <string name="learning">Learning</string>
+    <string name="master">Master</string>
+    <string name="wrong">WRONG!</string>
+
 
 </resources>

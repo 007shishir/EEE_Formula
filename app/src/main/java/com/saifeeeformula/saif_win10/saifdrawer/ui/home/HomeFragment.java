@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,17 +16,39 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+
+import com.facebook.ads.AudienceNetworkAds;
 import com.saifeeeformula.saif_win10.saifdrawer.R;
+
+import java.util.Objects;
+import com.facebook.ads.*;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel homeViewModel;
+    private AdView adView;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
+        AudienceNetworkAds.initialize(Objects.requireNonNull(getContext()));
+
+        adView = new AdView(Objects.requireNonNull(getActivity()),
+                getResources().getString(R.string.facebook_rectangle_add),
+                AdSize.RECTANGLE_HEIGHT_250);
+
+        // Find the Ad Container
+        LinearLayout adContainer = root.findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        // Request an ad
+        adView.loadAd();
+
         final TextView ch_1 = root.findViewById(R.id.btn01);
         final TextView ch_2 = root.findViewById(R.id.btn02);
         final TextView ch_3 = root.findViewById(R.id.btn03);
@@ -33,14 +56,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         final TextView ch_5 = root.findViewById(R.id.btn05);
         final TextView ch_6 = root.findViewById(R.id.btn06);
         final TextView ch_7 = root.findViewById(R.id.btn07);
-//        final TextView ch_8 = root.findViewById(R.id.btn08);
-//        final TextView ch_9 = root.findViewById(R.id.btn09);
-//        final TextView ch_10 = root.findViewById(R.id.btn10);
-//        final TextView ch_11 = root.findViewById(R.id.btn11);
-//        final TextView ch_12 = root.findViewById(R.id.btn12);
-//        final TextView ch_13 = root.findViewById(R.id.btn13);
-//        final TextView ch_14 = root.findViewById(R.id.btn14);
-//        final TextView ch_15 = root.findViewById(R.id.btn15);
 
         ch_1.setOnClickListener(this);
         ch_2.setOnClickListener(this);
@@ -59,7 +74,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return root;
     }
 
-    //basicEE elecMachines powerSys basicElec eeeMathCollection eeeMathCollection
+    //All the child name
+    //basicEE, elecMachines, powerSys, basicElec, eeeMathCollection,
+    // eeeMathCollection, eeeJobMath, extraNote
 
     @Override
     public void onClick(View v) {
@@ -68,43 +85,43 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.btn01:
                 child_name = new Bundle();
                 child_name.putString("child_name", "basicEE");
-                child_name.putString("actionBar_title", "Basic Electrical Engineering");
+                child_name.putString("actionBar_title", getResources().getString(R.string.basicEE));
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
             case R.id.btn02:
                 child_name = new Bundle();
                 child_name.putString("child_name", "elecMachines");
-                child_name.putString("actionBar_title", "Electrical Machines");
+                child_name.putString("actionBar_title", getResources().getString(R.string.elecMachines));
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
             case R.id.btn03:
                 child_name = new Bundle();
                 child_name.putString("child_name", "powerSys");
-                child_name.putString("actionBar_title", "Power System");
+                child_name.putString("actionBar_title", getResources().getString(R.string.powerSys));
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
             case R.id.btn04:
                 child_name = new Bundle();
                 child_name.putString("child_name", "basicElec");
-                child_name.putString("actionBar_title", "Basic Electronics");
+                child_name.putString("actionBar_title", getResources().getString(R.string.basicElec));
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
             case R.id.btn05:
                 child_name = new Bundle();
                 child_name.putString("child_name", "eeeMathCollection");
-                child_name.putString("actionBar_title", "EEE Math Collection");
+                child_name.putString("actionBar_title", getResources().getString(R.string.eeeMathCollection));
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
             case R.id.btn06:
                 child_name = new Bundle();
                 child_name.putString("child_name", "eeeJobMath");
-                child_name.putString("actionBar_title", "EEE Math for Job");
+                child_name.putString("actionBar_title", getResources().getString(R.string.eeeJobMath));
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
             case R.id.btn07:
                 child_name = new Bundle();
                 child_name.putString("child_name", "extraNote");
-                child_name.putString("actionBar_title", "Extra Feature!");
+                child_name.putString("actionBar_title", getResources().getString(R.string.extraNote));
                 Navigation.findNavController(v).navigate(R.id.action_nav_home_to_formulaView, child_name);
                 break;
 

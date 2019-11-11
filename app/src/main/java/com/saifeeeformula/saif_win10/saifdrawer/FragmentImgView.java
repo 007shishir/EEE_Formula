@@ -21,10 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.ads.AudienceNetworkAds;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -34,6 +36,7 @@ import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.facebook.ads.*;
 
 import java.util.Objects;
 import static android.content.Context.CONNECTIVITY_SERVICE;
@@ -55,6 +58,7 @@ public class FragmentImgView extends Fragment {
     private ScaleGestureDetector mScaleDetector;
     GestureDetector gestureDetector;
     ScrollView layout;
+    private AdView adView1, adView2;
 
     public static FragmentImgView newInstance() {
         return new FragmentImgView();
@@ -65,6 +69,24 @@ public class FragmentImgView extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_img_view_fragment, container, false);
         Firebase.setAndroidContext(Objects.requireNonNull(getContext()));
+
+        AudienceNetworkAds.initialize(getContext());
+        adView1 = new AdView(getContext(),
+                getResources().getString(R.string.facebook_banner_add),
+                AdSize.BANNER_HEIGHT_50);
+        adView2 = new AdView(getContext(),
+                getResources().getString(R.string.facebook_rectangle_add),
+                AdSize.RECTANGLE_HEIGHT_250);
+        // Find the Ad Container
+        LinearLayout adContainer1 = rootView.findViewById(R.id.banner_container1);
+        LinearLayout adContainer2 = rootView.findViewById(R.id.banner_container2);
+        // Add the ad view to your activity layout
+        adContainer1.addView(adView1);
+        adContainer2.addView(adView2);
+        // Request an ad
+        adView1.loadAd();
+        adView2.loadAd();
+
 
         assert getArguments() != null;
         child_name = getArguments().getString("child_name");

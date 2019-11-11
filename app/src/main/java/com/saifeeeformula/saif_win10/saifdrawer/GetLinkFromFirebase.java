@@ -1,11 +1,13 @@
 package com.saifeeeformula.saif_win10.saifdrawer;
 
+import android.app.Application;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-public class GetLinkFromFirebase {
+public class GetLinkFromFirebase extends Application {
     String firebaseLink = "https://eee-formula.firebaseio.com/";
     String[] setLink;
     String j,k,l,m,n,child_name, key_name;

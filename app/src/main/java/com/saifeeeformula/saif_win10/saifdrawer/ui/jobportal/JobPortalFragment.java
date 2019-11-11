@@ -15,18 +15,38 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.facebook.ads.AudienceNetworkAds;
 import com.saifeeeformula.saif_win10.saifdrawer.R;
+import com.facebook.ads.*;
+
+import java.util.Objects;
 
 public class JobPortalFragment extends Fragment implements View.OnClickListener {
 
     private JobPortalViewModel slideshowViewModel;
     LinearLayout mLLeeeJob, mLLbankJob;
+    private AdView adView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(JobPortalViewModel.class);
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+
+        AudienceNetworkAds.initialize(Objects.requireNonNull(getContext()));
+        adView = new AdView(getContext(),
+                getResources().getString(R.string.facebook_rectangle_add),
+                AdSize.RECTANGLE_HEIGHT_250);
+
+        // Find the Ad Container
+        LinearLayout adContainer = root.findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        // Request an ad
+        adView.loadAd();
+
 //        final TextView textView = root.findViewById(R.id.text_slideshow);
         slideshowViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -64,5 +84,13 @@ public class JobPortalFragment extends Fragment implements View.OnClickListener 
                         Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

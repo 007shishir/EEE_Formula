@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.ads.AudienceNetworkAds;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 import static android.content.Context.CONNECTIVITY_SERVICE;
+import com.facebook.ads.*;
 
 public class FormulaView extends Fragment {
 //recycler view and database referrence are here. The child name is
@@ -35,6 +38,7 @@ public class FormulaView extends Fragment {
     private RecyclerView mRecycler_Memorize;
     private DatabaseReference mDatabase;
     String childName_fromFragment, actionBarText;
+    private AdView adView;
 
     //To check internet connection
     private ConnectivityManager connectivityManager;
@@ -49,6 +53,20 @@ public class FormulaView extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.formula_view_fragment, container, false);
+
+        AudienceNetworkAds.initialize(Objects.requireNonNull(getContext()));
+        adView = new AdView(getContext(),
+                getResources().getString(R.string.facebook_banner_add),
+                AdSize.BANNER_HEIGHT_90);
+
+        // Find the Ad Container
+        LinearLayout adContainer = root.findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        // Request an ad
+        adView.loadAd();
 
         connectivityManager = (ConnectivityManager) Objects.
                 requireNonNull(getActivity()).getSystemService(CONNECTIVITY_SERVICE);
@@ -145,5 +163,13 @@ public class FormulaView extends Fragment {
         super.onResume();
 
         ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(actionBarText);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

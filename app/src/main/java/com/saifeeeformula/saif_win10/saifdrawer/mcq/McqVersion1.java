@@ -9,6 +9,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.facebook.ads.AudienceNetworkAds;
 import com.saifeeeformula.saif_win10.saifdrawer.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -25,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.Objects;
+import com.facebook.ads.*;
 
 public class McqVersion1 extends AppCompatActivity {
 
@@ -101,8 +104,6 @@ public class McqVersion1 extends AppCompatActivity {
     private Button btn_prev;
     private Button btn_refresh;
 
-    //AdView mAdView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +112,23 @@ public class McqVersion1 extends AppCompatActivity {
 
         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
+        AudienceNetworkAds.initialize(this);
+        AdView adView1 = new AdView(this,
+                getResources().getString(R.string.facebook_banner_add),
+                AdSize.BANNER_HEIGHT_50);
+        AdView adView2 = new AdView(this,
+                getResources().getString(R.string.facebook_rectangle_add),
+                AdSize.RECTANGLE_HEIGHT_250);
+        // Find the Ad Container
+        LinearLayout adContainer1 = findViewById(R.id.banner_container1);
+        LinearLayout adContainer2 = findViewById(R.id.banner_container2);
+        // Add the ad view to your activity layout
+        adContainer1.addView(adView1);
+        adContainer2.addView(adView2);
+        // Request an ad
+        adView1.loadAd();
+        adView2.loadAd();
+
         //connecting with viewmodel class
         mcq_viewModel = ViewModelProviders.of(this).get(Mcq_ViewModel.class);
 
@@ -118,8 +136,6 @@ public class McqVersion1 extends AppCompatActivity {
 
         mPost_key = Objects.requireNonNull(getIntent().getExtras()).getString("key_name");
         child_Name = Objects.requireNonNull(getIntent().getExtras()).getString("childName");
-        //Toast.makeText(StudyMCQ.this,mPost_key+child_Name,Toast.LENGTH_SHORT).show();
-
 
         mTxt_quest = findViewById(R.id.mTxt_quest);
         mTxt_ans = findViewById(R.id.mTxt_ans);
@@ -152,9 +168,7 @@ public class McqVersion1 extends AppCompatActivity {
         mTxt_Header_topic = findViewById(R.id.mTxt_Header_topic);
 
         //For Progress bar
-        progressBar2 = (ProgressBar) findViewById(R.id.mPRone);
-
-//        headerTopic();
+        progressBar2 = findViewById(R.id.mPRone);
 
         updateLevelStatus(level);
         eachQuestStatus();
@@ -177,120 +191,21 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public void headerTopic() {
-        switch (mPost_key) {
-            case "10000":
-                mTxt_Header_topic.setText("general");
-                break;
-            case "10010":
-            case "10011":
-                mTxt_Header_topic.setText("Chapter 1");
-                break;
-            case "10020":
-            case "10021":
-                mTxt_Header_topic.setText("Chapter 2");
-                break;
-            case "10030":
-            case "10031":
-                mTxt_Header_topic.setText("Chapter 3");
-                break;
-            case "10040":
-            case "10041":
-                mTxt_Header_topic.setText("Chapter 4");
-                break;
-            case "10050":
-            case "10051":
-                mTxt_Header_topic.setText("Chapter 5");
-                break;
-            case "10060":
-            case "10061":
-            case "10062":
-                mTxt_Header_topic.setText("Chapter 6");
-                break;
-            case "10070":
-            case "10071":
-                mTxt_Header_topic.setText("Chapter 7");
-                break;
-            case "10072":
-                mTxt_Header_topic.setText("Chapter 7");
-                break;
-            case "10080":
-                mTxt_Header_topic.setText("Chapter 8");
-                break;
-            case "10081":
-                mTxt_Header_topic.setText("Chapter 8");
-                break;
-            case "10082":
-                mTxt_Header_topic.setText("Chapter 8");
-                break;
-            case "10090":
-                mTxt_Header_topic.setText("Chapter 9");
-                break;
-            case "10091":
-                mTxt_Header_topic.setText("Chapter 9");
-                break;
-            case "10092":
-                mTxt_Header_topic.setText("Chapter 9");
-                break;
-            case "10100":
-                mTxt_Header_topic.setText("Chapter 10");
-                break;
-            case "10101":
-                mTxt_Header_topic.setText("Chapter 10");
-                break;
-            case "10110":
-                mTxt_Header_topic.setText("Chapter 11");
-                break;
-            case "10111":
-                mTxt_Header_topic.setText("Chapter 11");
-                break;
-            case "10120":
-                mTxt_Header_topic.setText("Chapter 12");
-                break;
-            case "10121":
-                mTxt_Header_topic.setText("Chapter 12");
-                break;
-            case "10130":
-                mTxt_Header_topic.setText("Chapter 13");
-                break;
-            case "10131":
-                mTxt_Header_topic.setText("Chapter 13");
-                break;
-            case "10140":
-                mTxt_Header_topic.setText("Chapter 14");
-                break;
-            case "10141":
-                mTxt_Header_topic.setText("Chapter 14");
-                break;
-            case "10150":
-                mTxt_Header_topic.setText("Chapter 15");
-                break;
-            case "10151":
-                mTxt_Header_topic.setText("Chapter 15");
-                break;
-            case "10160":
-                mTxt_Header_topic.setText("Chapter 16");
-                break;
-            case "10161":
-                mTxt_Header_topic.setText("Chapter 16");
-                break;
-            default:
-                mTxt_Header_topic.setText("MCQ");
-                break;
-        }
 
+        mTxt_Header_topic.setText(getResources().getString(R.string.mcq));
     }
 
     public void updateLevelEachQuestionStatus(int a) {
         if (a < 2) {
-            mTxt_PointEachQ.setText("Primary");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.primary));
             //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#80ff1a1a"));
             mTxt_PointEachQ.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
         } else if (a == 2 || a == 3) {
-            mTxt_PointEachQ.setText("Learning");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.learning));
             //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#80ffff1a"));
             mTxt_PointEachQ.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_yellow));
         } else {
-            mTxt_PointEachQ.setText("Master");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.master));
             //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#8033ff33"));
             mTxt_PointEachQ.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_green));
         }
@@ -305,7 +220,7 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public void initialState() {
-        String pointVquestion = "Point: " + String.valueOf(totalPoint) + "/" + totalQ;
+        String pointVquestion = "Point: " + totalPoint + "/" + totalQ;
         String countTry = "Tried: " + cycle + " times";
         String questionNo = "Question No: " + questionN[mQuestNum - 1];
         mTxt_totalQ.setText(pointVquestion);
@@ -314,7 +229,7 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public void initialState_offline() {
-        String pointVquestion = "Point: " + String.valueOf(totalPoint) + "/" + String.valueOf(totalQuestion);
+        String pointVquestion = "Point: " + totalPoint + "/" + totalQuestion;
         String countTry = "Tried: " + cycle + " times";
         String questionNo = "Question No: " + questionN[mQuestNum - 1];
         mTxt_totalQ.setText(pointVquestion);
@@ -326,7 +241,6 @@ public class McqVersion1 extends AppCompatActivity {
 
         //it reads from room database and update room database
         //The method commonLevelStatus() Status creates problem here; do not use it here!
-        //commonLevelStatus();
 
         idEachQuest(child_Name, mPost_key, questionN[mQuestNum - 1]);
 
@@ -520,7 +434,7 @@ public class McqVersion1 extends AppCompatActivity {
 
                         if (ansChoice.equals(answer)) {
                             showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText("RIGHT");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(R.string.right));
                             mTxt_ans.setText(showResult);
                             //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
 
@@ -548,7 +462,7 @@ public class McqVersion1 extends AppCompatActivity {
                         } else if (ansChoice.equals("NoAnswerChoosen")) {
                             initialState();
                             showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText("WRONG");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(R.string.wrong));
 
                             //set Background color for RIGHT v WRONG indicator Text box
                             mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
@@ -570,7 +484,7 @@ public class McqVersion1 extends AppCompatActivity {
                             //idEachQuest(child_Name,mPost_key,questionN[unAnsweredQN]);
                         } else {
                             showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText("WRONG");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(R.string.wrong));
 
                             //set Background color for RIGHT v WRONG indicator Text box
                             mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
@@ -676,14 +590,14 @@ public class McqVersion1 extends AppCompatActivity {
 
     public void updateLevelStatus(int a) {
         if (a < 2) {
-            mTxt_level.setText("Primary");
+            mTxt_level.setText(getResources().getString(R.string.primary));
             mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_background));
         } else if (a == 2 || a == 3) {
-            mTxt_level.setText("Learning");
+            mTxt_level.setText(getResources().getString(R.string.learning));
             mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_yellow));
         } else {
             //Toast.makeText(McqVersion1.this, "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
-            mTxt_level.setText("Master");
+            mTxt_level.setText(getResources().getString(R.string.master));
             mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_green));
         }
     }
@@ -1662,7 +1576,7 @@ public class McqVersion1 extends AppCompatActivity {
                             showResult = "Ans: " + get_ans;
                             mTxt_ans.setText(showResult);
 
-                            mTxt_RIGHTvWRONG.setText("RIGHT!");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(R.string.right));
                             //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
 
                             //set Background color for RIGHT v WRONG indicator Text box
@@ -1685,7 +1599,7 @@ public class McqVersion1 extends AppCompatActivity {
                             initialState_offline();
                             showResult = "Ans: " + get_ans;
                             mTxt_ans.setText(showResult);
-                            mTxt_RIGHTvWRONG.setText("WRONG!");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(R.string.wrong));
 
                             //set Background color for RIGHT v WRONG indicator Text box
                             mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
@@ -1704,7 +1618,7 @@ public class McqVersion1 extends AppCompatActivity {
                         } else {
                             showResult = "Ans: " + get_ans;
                             mTxt_ans.setText(showResult);
-                            mTxt_RIGHTvWRONG.setText("WRONG!");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(R.string.wrong));
                             //Toast.makeText(McqQuestion.this, "Wrong Answer, Question No.: " + questionN[unAnsweredQN], Toast.LENGTH_SHORT).show();
 
                             //set Background color for RIGHT v WRONG indicator Text box
@@ -1854,35 +1768,6 @@ public class McqVersion1 extends AppCompatActivity {
             readFromRoomDatabase();
         }
 
-//        //Changing the text for submit, answer and explanation view
-//        String mSubmit = "SUBMIT";
-//        String mAnswer = "ANSWER";
-//        String mExplanation = "Explanation will be here";
-//        mBtn_submit.setText(mSubmit);
-//        mTxt_ans.setText(mAnswer);
-//        mTxt_expl.setText(mExplanation);
-//
-//        //Increase the question number
-//        mQuestNum++;
-//        eachQuestStatus();
-//        initialState_offline();
-//
-//        uncheckOption();
-//
-//
-//        if (mQuestNum > totalQuestion) {
-//            mQuestNum = 1;
-//
-//            eachQuestStatus();
-//            readFromRoomDatabase();
-//
-//            cycle++;
-//            totalPoint = 0;
-//            initialState_offline();
-//        } else {
-//
-//            readFromRoomDatabase();
-//        }
     }
 
     public void onCLICKonPREV_offline() {
@@ -1905,10 +1790,8 @@ public class McqVersion1 extends AppCompatActivity {
             mQuestNum++;
         }
 
-
         initialState_offline();
         uncheckOption();
-
 
         if (mQuestNum == 1 && cycle != 0) {
             mQuestNum = totalQuestion;
@@ -1932,9 +1815,11 @@ public class McqVersion1 extends AppCompatActivity {
 
     public void notificationForTotalPoint() {
         if (totalPoint == totalQuestion) {
-            Toast.makeText(McqVersion1.this, "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(McqVersion1.this,
+                    "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
         } else
-            Toast.makeText(McqVersion1.this, "Total Point: " + totalPoint, Toast.LENGTH_LONG).show();
+            Toast.makeText(McqVersion1.this,
+                    "Total Point: " + totalPoint, Toast.LENGTH_LONG).show();
     }
 
     public void commonLevelStatus() {
@@ -1964,7 +1849,8 @@ public class McqVersion1 extends AppCompatActivity {
                     break;
                 }
                 if (r1 == 1) {
-                    Toast.makeText(McqVersion1.this, "You already tried this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(McqVersion1.this,
+                            "You already tried this question", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "q2":
@@ -1974,7 +1860,8 @@ public class McqVersion1 extends AppCompatActivity {
                     break;
                 }
                 if (r2 == 1) {
-                    Toast.makeText(McqVersion1.this, "You already tried this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(McqVersion1.this,
+                            "You already tried this question", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "q3":
@@ -1984,7 +1871,8 @@ public class McqVersion1 extends AppCompatActivity {
                     break;
                 }
                 if (r3 == 1) {
-                    Toast.makeText(McqVersion1.this, "You already tried this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(McqVersion1.this,
+                            "You already tried this question", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "q4":
@@ -1994,7 +1882,8 @@ public class McqVersion1 extends AppCompatActivity {
                     break;
                 }
                 if (r4 == 1) {
-                    Toast.makeText(McqVersion1.this, "You already tried this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(McqVersion1.this,
+                            "You already tried this question", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "q5":
@@ -2004,7 +1893,8 @@ public class McqVersion1 extends AppCompatActivity {
                     break;
                 }
                 if (r5 == 1) {
-                    Toast.makeText(McqVersion1.this, "You already tried this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(McqVersion1.this,
+                            "You already tried this question", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "q6":
@@ -2014,7 +1904,8 @@ public class McqVersion1 extends AppCompatActivity {
                     break;
                 }
                 if (r6 == 1) {
-                    Toast.makeText(McqVersion1.this, "You already tried this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(McqVersion1.this,
+                            "You already tried this question", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "q7":
@@ -2024,7 +1915,8 @@ public class McqVersion1 extends AppCompatActivity {
                     break;
                 }
                 if (r7 == 1) {
-                    Toast.makeText(McqVersion1.this, "You already tried this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(McqVersion1.this,
+                            "You already tried this question", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "q8":
@@ -3105,9 +2997,9 @@ public class McqVersion1 extends AppCompatActivity {
                         progressLearning.setProgress(countLearning);
                         progressMaster.setProgress(countMaster);
 
-                        String textPr = "Primary: " + String.valueOf(countPrimary) + " (out of " + String.valueOf(totalQuestion) + ")";
-                        String textLr = "Learning: " + String.valueOf(countLearning) + " (out of " + String.valueOf(totalQuestion) + ")";
-                        String textMs = "Master: " + String.valueOf(countMaster) + " (out of " + String.valueOf(totalQuestion) + ")";
+                        String textPr = "Primary: " + countPrimary + " (out of " + totalQuestion + ")";
+                        String textLr = "Learning: " + countLearning + " (out of " + totalQuestion + ")";
+                        String textMs = "Master: " + countMaster + " (out of " + totalQuestion + ")";
 
                         mPrimary_Text.setText(textPr);
                         mLearning_Text.setText(textLr);
